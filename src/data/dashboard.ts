@@ -1,0 +1,172 @@
+// =============================================================================
+// FlowCart — Dashboard Mock Data (Bonus Feature)
+// =============================================================================
+
+import {
+  DashboardStat,
+  ChartDataPoint,
+  DashboardProduct,
+  RecentOrder,
+} from '@/types';
+
+export const dashboardStats: DashboardStat[] = [
+  {
+    id: 'stat-revenue',
+    label: 'Total Revenue',
+    value: '$48,290',
+    change: 12.5,
+    icon: 'revenue',
+  },
+  {
+    id: 'stat-orders',
+    label: 'Orders',
+    value: '1,247',
+    change: 8.2,
+    icon: 'orders',
+  },
+  {
+    id: 'stat-customers',
+    label: 'Customers',
+    value: '3,891',
+    change: -2.4,
+    icon: 'customers',
+  },
+  {
+    id: 'stat-products',
+    label: 'Active Products',
+    value: '64',
+    change: 4.1,
+    icon: 'products',
+  },
+];
+
+/** Monthly order data for the chart. 12 months gives a realistic trend. */
+export const orderChartData: ChartDataPoint[] = [
+  { label: 'Jan', value: 65 },
+  { label: 'Feb', value: 78 },
+  { label: 'Mar', value: 90 },
+  { label: 'Apr', value: 81 },
+  { label: 'May', value: 95 },
+  { label: 'Jun', value: 110 },
+  { label: 'Jul', value: 102 },
+  { label: 'Aug', value: 120 },
+  { label: 'Sep', value: 135 },
+  { label: 'Oct', value: 128 },
+  { label: 'Nov', value: 148 },
+  { label: 'Dec', value: 165 },
+];
+
+export const dashboardProducts: DashboardProduct[] = [
+  {
+    id: 'dp-1',
+    name: 'Heritage Weekender',
+    category: 'bags',
+    price: 28900,
+    stock: 23,
+    status: 'active',
+  },
+  {
+    id: 'dp-2',
+    name: 'Minimalist Chrono',
+    category: 'watches',
+    price: 34900,
+    stock: 12,
+    status: 'active',
+  },
+  {
+    id: 'dp-3',
+    name: 'Coastal Aviators',
+    category: 'eyewear',
+    price: 18900,
+    stock: 45,
+    status: 'active',
+  },
+  {
+    id: 'dp-4',
+    name: 'Stride Runners',
+    category: 'footwear',
+    price: 15900,
+    stock: 0,
+    status: 'draft',
+  },
+  {
+    id: 'dp-5',
+    name: 'Canvas Tote',
+    category: 'bags',
+    price: 7900,
+    stock: 67,
+    status: 'active',
+  },
+  {
+    id: 'dp-6',
+    name: 'Field Watch',
+    category: 'watches',
+    price: 22900,
+    stock: 8,
+    status: 'active',
+  },
+  {
+    id: 'dp-7',
+    name: 'Retro Wayfarers',
+    category: 'eyewear',
+    price: 14900,
+    stock: 34,
+    status: 'active',
+  },
+  {
+    id: 'dp-8',
+    name: 'Urban Sneakers',
+    category: 'footwear',
+    price: 19900,
+    stock: 19,
+    status: 'active',
+  },
+];
+
+export const recentOrders: RecentOrder[] = [
+  {
+    id: 'ORD-7291',
+    customer: 'Emma Wilson',
+    email: 'emma.w@email.com',
+    product: 'Heritage Weekender',
+    amount: 28900,
+    status: 'completed',
+    date: '2025-06-09',
+  },
+  {
+    id: 'ORD-7290',
+    customer: 'David Kim',
+    email: 'david.k@email.com',
+    product: 'Minimalist Chrono',
+    amount: 34900,
+    status: 'shipped',
+    date: '2025-06-09',
+  },
+  {
+    id: 'ORD-7289',
+    customer: 'Lisa Anderson',
+    email: 'lisa.a@email.com',
+    product: 'Urban Sneakers',
+    amount: 19900,
+    status: 'processing',
+    date: '2025-06-08',
+  },
+  {
+    id: 'ORD-7288',
+    customer: 'Alex Thompson',
+    email: 'alex.t@email.com',
+    product: 'Coastal Aviators',
+    amount: 18900,
+    status: 'completed',
+    date: '2025-06-08',
+  },
+  {
+    id: 'ORD-7287',
+    customer: 'Maria Garcia',
+    email: 'maria.g@email.com',
+    product: 'Silk Scarf',
+    amount: 12900,
+    status: 'cancelled',
+    date: '2025-06-07',
+  },
+];

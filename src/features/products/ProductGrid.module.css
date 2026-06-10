@@ -1,0 +1,101 @@
+/* =============================================================================
+ * ProductGrid — Section Styles
+ * ============================================================================= */
+
+/* ---- Header ---- */
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.title {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-2);
+}
+
+.subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+/* ---- Filter ---- */
+.filterWrapper {
+  margin-bottom: var(--space-8);
+}
+
+/* ---- Grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+/* ---- Loading Skeletons ---- */
+.skeletonCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeletonImage {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+}
+
+.skeletonInfo {
+  padding: var(--space-4) var(--space-2) var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skeletonLine {
+  height: 14px;
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.skeletonShort {
+  width: 40%;
+}
+
+.skeletonMedium {
+  width: 60%;
+}
+
+/* ---- Empty & Error States ---- */
+.emptyState {
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+}
+
+.emptyTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.emptyText {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
