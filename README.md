@@ -2,8 +2,6 @@
 
 **A modern lifestyle e-commerce landing page** built as a technical assessment for Yatri Motorcycles.
 
-> *"Curated everyday luxury — thoughtfully designed, built to last."*
-
 ---
 
 ## Quick Start
