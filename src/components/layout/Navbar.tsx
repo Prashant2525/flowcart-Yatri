@@ -1,30 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — Navbar Component
-// =============================================================================
-// PURPOSE:
-//   The persistent top navigation bar. Contains brand logo, navigation links,
-//   cart icon with item count badge, wishlist icon, and mobile menu toggle.
-//
-// ARCHITECTURE:
-//   - Server-agnostic: reads from Zustand stores (client-side only)
-//   - Sticky positioning with backdrop blur for modern feel
-//   - Mobile: collapses nav links into hamburger menu
-//   - Cart badge uses store subscription for live count updates
-//
-// INTERVIEW QUESTION:
-//   Q: "Why is the Navbar a Client Component?"
-//   A: It reads from Zustand stores (cart count, mobile menu toggle), which
-//      require client-side JavaScript. In a pure server-rendered navbar,
-//      we'd lose the live cart badge count and interactive mobile toggle.
-//
-//   Q: "How do you prevent unnecessary re-renders when cart changes?"
-//   A: Zustand's selector pattern — we only subscribe to `getTotalItems`,
-//      not the entire cart state. So the navbar re-renders only when the
-//      total count changes, not when item quantities change.
-// =============================================================================
-
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useCartStore } from '@/stores/useCartStore';
@@ -42,7 +17,6 @@ export function Navbar() {
     (state) => state.toggleMobileMenu
   );
 
-  // Track scroll position for navbar background change
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -106,9 +80,14 @@ export function Navbar() {
 
         {/* Action icons */}
         <div className={styles.actions}>
-          {/* Wishlist */}
           <button
             className={styles.iconButton}
+            onClick={() => {
+              const productsSection = document.getElementById('products');
+              if (productsSection) {
+                productsSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
             aria-label={`Wishlist (${wishlistCount} items)`}
             id="wishlist-nav-button"
           >

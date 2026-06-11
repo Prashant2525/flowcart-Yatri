@@ -1,21 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — Admin Dashboard Page
-// =============================================================================
-// PURPOSE:
-//   Bonus feature — a clean admin dashboard with mock analytics.
-//   Shows stats cards, an order chart, recent orders, and a product table.
-//   Demonstrates full-stack thinking and ability to build data-dense UIs.
-//
-// DESIGN DECISION: CSS/SVG chart instead of Recharts
-//   Using pure CSS bars for the chart instead of a library because:
-//   1. Keeps bundle size minimal (Recharts adds ~200KB)
-//   2. Shows deeper CSS skill
-//   3. The chart is simple enough that a library is overkill
-//   For a real dashboard, Recharts or D3 would be appropriate.
-// =============================================================================
-
 import Link from 'next/link';
 import {
   dashboardStats,

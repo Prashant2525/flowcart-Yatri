@@ -1,19 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — Footer Component
-// =============================================================================
-// PURPOSE:
-//   Site footer with navigation links, newsletter signup form, and social
-//   media links. Divided into columns on desktop, stacked on mobile.
-//
-// FEATURES:
-//   - Newsletter email input with validation and success toast
-//   - Social media icon links
-//   - Organized link groups (Shop, Company, Support)
-//   - Copyright with current year
-// =============================================================================
-
 import { useState, FormEvent } from 'react';
 import { FOOTER_LINKS, SOCIAL_LINKS } from '@/lib/constants';
 import styles from './Footer.module.css';
@@ -27,18 +13,15 @@ export function Footer() {
     e.preventDefault();
     setError('');
 
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError('Please enter a valid email address');
       return;
     }
 
-    // Simulate successful subscription
     setIsSubscribed(true);
     setEmail('');
 
-    // Reset after 3 seconds
     setTimeout(() => setIsSubscribed(false), 3000);
   }
 
@@ -164,7 +147,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className={styles.bottomBar}>
-          <p className={styles.copyright}>
+          <p className={styles.copyright} suppressHydrationWarning>
             © {new Date().getFullYear()} FlowCart. All rights reserved.
           </p>
           <div className={styles.legalLinks}>
@@ -181,7 +164,6 @@ export function Footer() {
   );
 }
 
-// Social media icon component — keeps the footer clean
 function SocialIcon({ name }: { name: string }) {
   switch (name) {
     case 'instagram':

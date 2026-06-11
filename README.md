@@ -36,46 +36,6 @@ The dev server starts on `localhost:3000`. The dashboard is at `/dashboard`.
 
 ---
 
-## Architecture
-
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── api/               # Mock REST endpoints (products, FAQs)
-│   ├── dashboard/         # Admin dashboard page
-│   ├── globals.css        # Design system tokens + resets
-│   ├── layout.tsx         # Root layout (fonts, metadata, providers)
-│   └── page.tsx           # Landing page (composes all sections)
-├── components/layout/     # Persistent layout components
-│   ├── Navbar             # Sticky nav with cart badge + frosted glass
-│   ├── Footer             # Newsletter, social links, link columns
-│   ├── MobileMenu         # Full-screen mobile nav overlay
-│   └── CartDrawer         # Slide-in cart sidebar
-├── features/              # Feature-based modules (domain logic + UI)
-│   ├── hero/              # Hero section with GSAP entrance animation
-│   ├── products/          # ProductGrid, ProductCard, CategoryFilter, QuickView
-│   ├── faq/               # Accordion with GSAP height animation
-│   ├── promo/             # Promotional banner
-│   └── testimonials/      # Customer review cards
-├── stores/                # Zustand stores (client-side state)
-│   ├── useCartStore       # Cart items, quantities, drawer toggle
-│   ├── useWishlistStore   # Wishlist product IDs
-│   ├── useQuickViewStore  # Quick view modal state
-│   └── useNavigationStore # Mobile menu state
-├── hooks/                 # Custom React hooks
-│   ├── useScrollAnimation # Reusable GSAP ScrollTrigger hook
-│   └── useMediaQuery      # Responsive JS breakpoint detection
-├── data/                  # Mock data (products, FAQs, testimonials, dashboard)
-├── lib/                   # Pure utilities (no React dependency)
-│   ├── constants.ts       # Breakpoints, animation config, navigation data
-│   ├── utils.ts           # formatPrice, cn(), calculateDiscount, etc.
-│   └── queryClient.ts     # TanStack Query configuration
-├── providers/             # React context providers
-│   └── QueryProvider.tsx  # TanStack Query provider (client boundary)
-└── types/                 # TypeScript type definitions
-    └── index.ts           # All domain models (Product, CartItem, FAQ, etc.)
-```
-
 ### Key Principles
 
 1. **Feature-based organization** — Each feature (products, FAQ, etc.) owns its data hook, components, and styles. No cross-feature imports.
@@ -85,19 +45,6 @@ src/
 3. **State separation** — Server state (product catalog, FAQs) flows through TanStack Query. Client state (cart, wishlist, UI toggles) lives in Zustand. They never mix.
 
 4. **Prices in cents** — All prices are stored as integers (cents) to avoid floating-point precision issues. Formatted only at the display layer via `formatPrice()`.
-
----
-
-## Design System
-
-The design system lives entirely in `globals.css` as CSS custom properties:
-
-- **Color palette**: HSL-based warm neutrals (not blue-grays) + deep obsidian primary + warm amber accent
-- **Typography**: "Instrument Serif" for headings + "Inter" for body text
-- **Spacing**: 4px base grid (`--space-1` through `--space-32`)
-- **Type scale**: Fluid `clamp()` values for responsive sizing without breakpoints
-- **Shadows**: 4-level elevation system (sm → xl)
-- **Transitions**: 3 speed tiers (fast 150ms, normal 250ms, slow 400ms)
 
 ---
 
@@ -167,7 +114,7 @@ The design system lives entirely in `globals.css` as CSS custom properties:
 ## Scripts
 
 ```bash
-npm run dev      # Start development server (Turbopack)
+npm run dev      # Start development server
 npm run build    # Production build
 npm run start    # Start production server
 npm run lint     # ESLint check
@@ -175,21 +122,6 @@ npm run lint     # ESLint check
 
 ---
 
-## Design Decisions & Trade-offs
-
-### Why CSS Modules over Tailwind?
-CSS Modules provide genuine CSS encapsulation without runtime overhead. The design system tokens in `globals.css` give us consistency without utility class verbosity. This also demonstrates deeper CSS understanding.
-
-### Why Zustand over Context API?
-Context causes re-renders in all consumers when any value changes. Zustand's selector pattern (`state => state.items.length`) only re-renders when the selected value changes. This matters for the cart badge — it shouldn't re-render the entire navbar when item quantities change.
-
-### Why mock API routes instead of direct imports?
-TanStack Query needs an async data source. By creating real API routes, we get: realistic loading states, error handling, caching behavior, and network tab visibility. It also demonstrates the ability to work with REST APIs.
-
-### Why no `React.memo` on ProductCard?
-Premature optimization. Zustand's selective subscriptions already prevent most unnecessary re-renders. We'd add memo only after profiling shows a problem — not before.
-
----
 
 ## License
 

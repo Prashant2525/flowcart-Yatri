@@ -1,7 +1,3 @@
-// =============================================================================
-// FlowCart — Dashboard Mock Data (Bonus Feature)
-// =============================================================================
-
 import {
   DashboardStat,
   ChartDataPoint,
@@ -40,7 +36,6 @@ export const dashboardStats: DashboardStat[] = [
   },
 ];
 
-/** Monthly order data for the chart. 12 months gives a realistic trend. */
 export const orderChartData: ChartDataPoint[] = [
   { label: 'Jan', value: 65 },
   { label: 'Feb', value: 78 },

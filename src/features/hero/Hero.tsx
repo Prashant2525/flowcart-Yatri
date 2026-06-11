@@ -1,32 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — Hero Section
-// =============================================================================
-// PURPOSE:
-//   The first thing users see. Sets the brand tone with a bold headline,
-//   supporting text, CTA button, and product imagery. The hero uses GSAP
-//   for a staggered entrance animation.
-//
-// ANIMATION STRATEGY:
-//   1. Headline fades in + slides up (the eye goes here first)
-//   2. Subtext fades in (context after the hook)
-//   3. CTA button fades in (the action)
-//   4. Product image scales up from slightly smaller (visual reward)
-//   All staggered with 120ms delay for a cascading "reveal" feel.
-//
-// INTERVIEW QUESTION:
-//   Q: "Why use GSAP timeline instead of CSS animations?"
-//   A: GSAP timeline gives precise control over sequencing and stagger.
-//      CSS animations can't easily coordinate 4 elements with sequential
-//      timing. GSAP also handles will-change and GPU compositing better.
-//
-//   Q: "Why not animate with Framer Motion?"
-//   A: The task brief specifically requires GSAP. Framer Motion is great
-//      but adding it alongside GSAP would create two animation systems —
-//      unnecessary complexity.
-// =============================================================================
-
 import { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
@@ -41,13 +14,11 @@ export function Hero() {
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Respect reduced motion preference
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
     if (prefersReducedMotion) {
-      // Make everything visible without animation
       gsap.set(
         [
           headlineRef.current,
@@ -60,7 +31,6 @@ export function Hero() {
       return;
     }
 
-    // Build the entrance timeline
     const tl = gsap.timeline({
       defaults: {
         ease: ANIMATION.ease.out,
@@ -77,7 +47,7 @@ export function Hero() {
         subtextRef.current,
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0 },
-        '-=0.5' // overlap with previous by 0.5s for fluidity
+        '-=0.5'
       )
       .fromTo(
         ctaRef.current,
@@ -140,11 +110,10 @@ export function Hero() {
               alt="Curated collection of premium lifestyle accessories"
               width={600}
               height={600}
-              priority // Load immediately — above the fold
+              priority
               className={styles.image}
             />
           </div>
-          {/* Decorative accent circle behind the image */}
           <div className={styles.accentCircle} aria-hidden="true" />
         </div>
       </div>

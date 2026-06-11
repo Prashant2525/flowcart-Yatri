@@ -1,13 +1,3 @@
-// =============================================================================
-// FlowCart — Product Mock Data
-// =============================================================================
-// Realistic product catalog for a modern lifestyle e-commerce brand.
-// Prices are in CENTS (see lib/utils.ts formatPrice for explanation).
-//
-// Design decision: 10 products across 5 categories gives enough variety
-// to demonstrate filtering while keeping the grid manageable.
-// =============================================================================
-
 import { Product } from '@/types';
 
 export const products: Product[] = [

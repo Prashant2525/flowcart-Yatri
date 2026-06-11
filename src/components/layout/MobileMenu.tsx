@@ -1,29 +1,19 @@
 'use client';
 
-// =============================================================================
-// FlowCart — MobileMenu Component
-// =============================================================================
-// PURPOSE:
-//   Full-screen mobile navigation overlay. Slides in from the left.
-//   Closes on link click or close button.
-//
-// ACCESSIBILITY:
-//   - Traps focus within the menu when open (keyboard users can't Tab out)
-//   - Closes on Escape key
-//   - aria-hidden on content behind the menu
-// =============================================================================
-
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useNavigationStore } from '@/stores/useNavigationStore';
 import { NAV_LINKS } from '@/lib/constants';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import styles from './MobileMenu.module.css';
 
 export function MobileMenu() {
   const isOpen = useNavigationStore((state) => state.isMobileMenuOpen);
   const closeMobileMenu = useNavigationStore((state) => state.closeMobileMenu);
 
-  // Close on Escape key and prevent body scroll when open
+  const panelRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(panelRef, isOpen);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -31,7 +21,6 @@ export function MobileMenu() {
       if (e.key === 'Escape') closeMobileMenu();
     }
 
-    // Prevent background scrolling when menu is open
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', handleEscape);
 
@@ -44,7 +33,7 @@ export function MobileMenu() {
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay} role="dialog" aria-label="Mobile navigation">
+    <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="Mobile navigation">
       {/* Backdrop — click to close */}
       <div
         className={styles.backdrop}
@@ -53,7 +42,7 @@ export function MobileMenu() {
       />
 
       {/* Menu panel */}
-      <div className={styles.panel}>
+      <div className={styles.panel} ref={panelRef}>
         {/* Close button */}
         <button
           className={styles.closeButton}

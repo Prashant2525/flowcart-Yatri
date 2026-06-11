@@ -1,13 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — Testimonials Component
-// =============================================================================
-// PURPOSE:
-//   Social proof section showing customer reviews in a card grid.
-//   Uses scroll-triggered reveal animation for each card.
-// =============================================================================
-
 import Image from 'next/image';
 import { testimonials } from '@/data/testimonials';
 import { getStarArray, cn } from '@/lib/utils';

@@ -1,17 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — PromoBanner Component
-// =============================================================================
-// PURPOSE:
-//   Eye-catching promotional banner between sections. Draws attention to
-//   a sale or special offer with a bold CTA.
-//
-// DESIGN:
-//   Full-width band with accent background color. Uses a serif headline
-//   for editorial feel, contrasting with the sans-serif of the rest.
-// =============================================================================
-
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import styles from './PromoBanner.module.css';
 

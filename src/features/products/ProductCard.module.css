@@ -1,11 +1,6 @@
-/* =============================================================================
- * ProductCard — Component Styles
- * ============================================================================= */
-
 .card {
   display: flex;
   flex-direction: column;
-  /* Prevent GSAP reveal flash */
   opacity: 0;
   transform: translateY(30px);
 }
@@ -26,9 +21,10 @@
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hover: subtle zoom on image */
-.card:hover .image {
-  transform: scale(1.04);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .image {
+    transform: scale(1.04);
+  }
 }
 
 /* Badge positioning */
@@ -67,7 +63,6 @@
   color: var(--color-accent);
 }
 
-/* Wishlist button */
 .wishlistButton {
   position: absolute;
   top: var(--space-3);
@@ -75,8 +70,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-full);
   background-color: var(--color-surface);
   color: var(--color-text-subtle);
@@ -85,16 +80,18 @@
   z-index: 2;
 }
 
-.wishlistButton:hover {
-  color: var(--color-error);
-  transform: scale(1.1);
+@media (hover: hover) and (pointer: fine) {
+  .wishlistButton:hover {
+    color: var(--color-error);
+    transform: scale(1.1);
+  }
 }
 
 .wishlisted {
   color: var(--color-error);
 }
 
-/* Hover overlay */
+
 .overlay {
   position: absolute;
   bottom: 0;
@@ -110,8 +107,23 @@
   z-index: 2;
 }
 
-.card:hover .overlay {
-  transform: translateY(0);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .overlay,
+  .card:focus-within .overlay {
+    transform: translateY(0);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .overlay {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .overlay {
+    display: none;
+  }
 }
 
 .overlayButton {
@@ -131,9 +143,11 @@
   width: 100%;
 }
 
-.overlayButton:hover {
-  background-color: var(--color-primary);
-  color: var(--color-surface);
+@media (hover: hover) and (pointer: fine) {
+  .overlayButton:hover {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+  }
 }
 
 .addToCartButton {
@@ -141,9 +155,11 @@
   color: var(--color-surface);
 }
 
-.addToCartButton:hover {
-  background-color: var(--color-accent);
-  color: var(--color-primary);
+@media (hover: hover) and (pointer: fine) {
+  .addToCartButton:hover {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+  }
 }
 
 /* "Added" feedback state */
@@ -151,6 +167,60 @@
   background-color: var(--color-success) !important;
   color: white !important;
   pointer-events: none;
+}
+
+.touchActions {
+  display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .touchActions {
+    display: flex;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+  }
+}
+
+@media (max-width: 1024px) {
+  .touchActions {
+    display: flex;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+  }
+}
+
+.touchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  height: 44px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.touchButtonPrimary {
+  flex: 1;
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.touchButtonPrimary:active {
+  background-color: var(--color-primary-hover);
+}
+
+.touchButton:active {
+  transform: scale(0.97);
 }
 
 /* ---- Product Info ---- */
@@ -218,22 +288,4 @@
   font-size: var(--text-sm);
   color: var(--color-text-subtle);
   text-decoration: line-through;
-}
-
-/* ---- Mobile: always show overlay buttons ---- */
-@media (max-width: 768px) {
-  .overlay {
-    transform: translateY(0);
-    position: relative;
-    background: none;
-    padding: var(--space-2) 0 0;
-  }
-
-  .overlayButton {
-    border: 1px solid var(--color-border);
-  }
-
-  .addToCartButton {
-    border: none;
-  }
 }

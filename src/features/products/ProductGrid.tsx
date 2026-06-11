@@ -1,29 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — ProductGrid Component
-// =============================================================================
-// PURPOSE:
-//   Container component that orchestrates product display:
-//   1. Section heading
-//   2. Category filter bar
-//   3. Product grid with loading/error/empty states
-//   4. Scroll-triggered reveal animation via GSAP
-//
-// DATA FLOW:
-//   CategoryFilter → selectedCategory (local state)
-//   selectedCategory → useProducts(category) → TanStack Query
-//   TanStack Query → products data | loading | error
-//   products → ProductCard[] → rendered grid
-//
-// INTERVIEW QUESTION:
-//   Q: "Why is category state local instead of in Zustand?"
-//   A: Category filtering is local to this section — no other component
-//      cares about which category is selected. Zustand is for cross-cutting
-//      state (cart, wishlist). Lifting everything to global state is an
-//      anti-pattern — it makes the store bloated and hard to reason about.
-// =============================================================================
-
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -42,7 +18,6 @@ export function ProductGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
 
-  // GSAP scroll-triggered reveal for product cards
   useEffect(() => {
     if (!products || products.length === 0 || !gridRef.current) return;
 
@@ -50,16 +25,14 @@ export function ProductGrid() {
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
-    // Get all product card elements in the grid
     const cards = gridRef.current.querySelectorAll('.product-card');
     if (cards.length === 0) return;
 
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || hasAnimated.current) {
       gsap.set(cards, { opacity: 1, y: 0 });
       return;
     }
 
-    // Animate cards in with stagger
     const tween = gsap.to(cards, {
       opacity: 1,
       y: 0,

@@ -1,29 +1,9 @@
 'use client';
-
-// =============================================================================
-// FlowCart — CartDrawer Component
-// =============================================================================
-// PURPOSE:
-//   Slide-in sidebar that shows cart contents, quantities, and total.
-//   Slides in from the right. Users can adjust quantities or remove items.
-//
-// ARCHITECTURE DECISION: Drawer vs Modal
-//   A drawer (side panel) is better than a modal for cart because:
-//   1. Users can still see the page content behind — less disorienting
-//   2. Feels lighter — modals feel like "you must deal with this now"
-//   3. Standard pattern (Amazon, Apple Store, SSENSE all use drawers)
-//
-// INTERVIEW QUESTION:
-//   Q: "Why do you prevent body scroll when the drawer is open?"
-//   A: Without it, users on mobile can accidentally scroll the page behind
-//      the drawer, which is confusing. It also prevents a visual glitch where
-//      the fixed backdrop seems to move with scroll.
-// =============================================================================
-
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useCartStore } from '@/stores/useCartStore';
 import { formatPrice } from '@/lib/utils';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import styles from './CartDrawer.module.css';
 
 export function CartDrawer() {
@@ -34,6 +14,10 @@ export function CartDrawer() {
   const setCartOpen = useCartStore((state) => state.setCartOpen);
   const getTotalPrice = useCartStore((state) => state.getTotalPrice);
   const clearCart = useCartStore((state) => state.clearCart);
+
+  // C3 fix: Ref for the drawer panel to trap focus within it
+  const drawerRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(drawerRef, isCartOpen);
 
   // Lock body scroll when drawer is open
   useEffect(() => {
@@ -62,7 +46,7 @@ export function CartDrawer() {
   if (!isCartOpen) return null;
 
   return (
-    <div className={styles.overlay} role="dialog" aria-label="Shopping cart">
+    <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="Shopping cart">
       {/* Backdrop */}
       <div
         className={styles.backdrop}
@@ -71,7 +55,7 @@ export function CartDrawer() {
       />
 
       {/* Drawer panel */}
-      <div className={styles.drawer}>
+      <div className={styles.drawer} ref={drawerRef}>
         {/* Header */}
         <div className={styles.header}>
           <h2 className={styles.title}>Your Cart</h2>
@@ -148,6 +132,7 @@ export function CartDrawer() {
                           updateQuantity(item.product.id, item.quantity - 1)
                         }
                         aria-label={`Decrease quantity of ${item.product.name}`}
+                        disabled={item.quantity <= 1}
                       >
                         −
                       </button>

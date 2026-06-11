@@ -1,7 +1,3 @@
-/* =============================================================================
- * ProductQuickView — Modal Styles
- * ============================================================================= */
-
 .overlay {
   position: fixed;
   inset: 0;
@@ -200,17 +196,33 @@
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
+  .overlay {
+    align-items: flex-end;
+  }
+
   .modal {
     grid-template-columns: 1fr;
-    max-height: 95vh;
+    max-height: 92vh;
+    overflow-y: auto;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   }
 
   .imageSection {
-    aspect-ratio: 4 / 3;
-    max-height: 300px;
+    aspect-ratio: 16 / 10;
+    max-height: 250px;
   }
 
   .details {
     padding: var(--space-6);
+    overflow-y: visible;
+  }
+
+  .name {
+    font-size: var(--text-2xl);
+  }
+
+  .closeButton {
+    top: var(--space-3);
+    right: var(--space-3);
   }
 }

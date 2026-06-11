@@ -1,7 +1,3 @@
-/* =============================================================================
- * CartDrawer — Component Styles
- * ============================================================================= */
-
 .overlay {
   position: fixed;
   inset: 0;
@@ -161,6 +157,12 @@
 .quantityButton:hover {
   color: var(--color-text);
   background-color: var(--color-bg-alt);
+}
+
+.quantityButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .quantity {

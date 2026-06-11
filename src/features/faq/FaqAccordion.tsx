@@ -1,23 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — FaqAccordion Component
-// =============================================================================
-// PURPOSE:
-//   Collapsible FAQ section. Fetches FAQ data via TanStack Query, then
-//   renders each FAQ as an expandable/collapsible item with GSAP animation.
-//
-// ANIMATION (GSAP):
-//   Uses GSAP to animate the height of the answer panel from 0 to auto.
-//   This is one of the 5 required GSAP animations.
-//
-//   WHY GSAP instead of CSS max-height?
-//   CSS `max-height: auto` doesn't work — you'd need to hardcode a large
-//   max-height value (like 999px), which makes the animation timing
-//   inconsistent (short answers animate too fast, long ones are fine).
-//   GSAP's `height: 'auto'` calculates the real height and animates smoothly.
-// =============================================================================
-
 import { useState, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { useFaqs } from '@/features/faq/useFaqs';
@@ -73,7 +55,6 @@ export function FaqAccordion() {
   );
 }
 
-// Individual FAQ item with GSAP expand/collapse
 function FaqItemComponent({ faq }: { faq: FaqItem }) {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -89,7 +70,6 @@ function FaqItemComponent({ faq }: { faq: FaqItem }) {
     ).matches;
 
     if (isOpen) {
-      // Collapse
       if (prefersReducedMotion) {
         content.style.height = '0px';
       } else {
@@ -100,7 +80,6 @@ function FaqItemComponent({ faq }: { faq: FaqItem }) {
         });
       }
     } else {
-      // Expand — animate to the natural height of the content
       if (prefersReducedMotion) {
         content.style.height = `${inner.offsetHeight}px`;
       } else {

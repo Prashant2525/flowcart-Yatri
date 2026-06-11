@@ -1,25 +1,3 @@
-/* =============================================================================
- * FlowCart — Global Design System
- * =============================================================================
- * This file is the single source of truth for ALL visual tokens.
- * Components reference these custom properties — they never hard-code colors,
- * sizes, or spacing. This makes theming trivial and ensures visual consistency.
- *
- * Organization:
- *   1. CSS Reset (modern, minimal)
- *   2. Design Tokens (custom properties)
- *   3. Typography
- *   4. Layout Utilities
- *   5. Component Base Styles
- *   6. Animations
- *   7. Responsive Overrides
- * ============================================================================= */
-
-/* =============================================================================
- * 1. CSS RESET
- * Modern reset — only what we need, not a sledgehammer.
- * ============================================================================= */
-
 *,
 *::before,
 *::after {
@@ -29,7 +7,6 @@
 }
 
 html {
-  /* Enables smooth scrolling for anchor links, but respects user preference */
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -79,7 +56,6 @@ ol {
   list-style: none;
 }
 
-/* Remove all animations for people who prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -91,26 +67,18 @@ ol {
   }
 }
 
-/* =============================================================================
- * 2. DESIGN TOKENS
- * All values as CSS custom properties for easy theming and consistency.
- * ============================================================================= */
-
 :root {
   /* ---- Colors ---- */
 
-  /* Primary — Deep obsidian: conveys premium quality */
   --color-primary: hsl(220, 20%, 10%);
   --color-primary-light: hsl(220, 15%, 20%);
   --color-primary-hover: hsl(220, 18%, 15%);
 
-  /* Accent — Warm amber: warmth + urgency for CTAs */
   --color-accent: hsl(35, 90%, 55%);
   --color-accent-hover: hsl(35, 90%, 48%);
   --color-accent-subtle: hsl(35, 60%, 95%);
   --color-accent-text: hsl(35, 90%, 25%);
 
-  /* Neutral — Warm grays (not blue-grays, which feel cold/corporate) */
   --color-bg: hsl(40, 20%, 98%);
   --color-bg-alt: hsl(40, 15%, 95%);
   --color-surface: hsl(0, 0%, 100%);
@@ -120,7 +88,6 @@ ol {
   --color-text-muted: hsl(220, 10%, 45%);
   --color-text-subtle: hsl(220, 8%, 65%);
 
-  /* Semantic */
   --color-success: hsl(152, 60%, 40%);
   --color-success-bg: hsl(152, 60%, 95%);
   --color-error: hsl(0, 70%, 55%);
@@ -130,11 +97,9 @@ ol {
   --color-warning: hsl(40, 90%, 50%);
   --color-warning-bg: hsl(40, 90%, 96%);
 
-  /* ---- Typography ---- */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-instrument-serif), Georgia, 'Times New Roman', serif;
 
-  /* Type scale — fluid with clamp() for smooth responsive sizing */
   --text-xs: clamp(0.75rem, 0.7rem + 0.15vw, 0.8rem);
   --text-sm: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
   --text-base: clamp(0.9375rem, 0.9rem + 0.18vw, 1rem);
@@ -145,26 +110,22 @@ ol {
   --text-4xl: clamp(2.25rem, 1.6rem + 2vw, 3.5rem);
   --text-5xl: clamp(3rem, 2rem + 3.2vw, 5rem);
 
-  /* Line heights */
   --leading-none: 1;
   --leading-tight: 1.15;
   --leading-snug: 1.3;
   --leading-normal: 1.6;
   --leading-relaxed: 1.75;
 
-  /* Font weights */
   --font-regular: 400;
   --font-medium: 500;
   --font-semibold: 600;
   --font-bold: 700;
 
-  /* Letter spacing */
   --tracking-tight: -0.02em;
   --tracking-normal: 0;
   --tracking-wide: 0.04em;
   --tracking-widest: 0.1em;
 
-  /* ---- Spacing (4px base grid) ---- */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -179,21 +140,17 @@ ol {
   --space-24: 6rem;
   --space-32: 8rem;
 
-  /* Section padding — generous for luxury feel */
   --section-gap: clamp(4rem, 8vw, 8rem);
 
-  /* Container */
   --container-max: 1280px;
   --container-padding: clamp(1rem, 5vw, 2rem);
 
-  /* ---- Borders & Radius ---- */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
 
-  /* ---- Shadows ---- */
   --shadow-sm: 0 1px 2px hsla(220, 20%, 10%, 0.04),
     0 1px 3px hsla(220, 20%, 10%, 0.06);
   --shadow-md: 0 4px 6px hsla(220, 20%, 10%, 0.04),
@@ -203,12 +160,10 @@ ol {
   --shadow-xl: 0 20px 40px hsla(220, 20%, 10%, 0.1),
     0 8px 20px hsla(220, 20%, 10%, 0.06);
 
-  /* ---- Transitions ---- */
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
   --transition-slow: 400ms ease;
 
-  /* ---- Z-Index Scale ---- */
   --z-base: 1;
   --z-dropdown: 10;
   --z-sticky: 20;
@@ -216,10 +171,6 @@ ol {
   --z-modal: 40;
   --z-toast: 50;
 }
-
-/* =============================================================================
- * 3. TYPOGRAPHY
- * ============================================================================= */
 
 h1,
 h2,
@@ -252,10 +203,6 @@ p {
   color: var(--color-text-muted);
 }
 
-/* =============================================================================
- * 4. LAYOUT UTILITIES
- * ============================================================================= */
-
 .container {
   width: 100%;
   max-width: var(--container-max);
@@ -267,7 +214,6 @@ p {
   padding-block: var(--section-gap);
 }
 
-/* Visually hidden but accessible to screen readers */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -280,11 +226,6 @@ p {
   border: 0;
 }
 
-/* =============================================================================
- * 5. COMPONENT BASE STYLES
- * ============================================================================= */
-
-/* ---- Buttons ---- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -304,6 +245,16 @@ p {
 }
 
 .btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+[role="tab"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
@@ -374,7 +325,6 @@ p {
   box-shadow: var(--shadow-md);
 }
 
-/* ---- Badge ---- */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -406,7 +356,6 @@ p {
   color: var(--color-accent);
 }
 
-/* ---- Cards ---- */
 .card {
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
@@ -420,7 +369,6 @@ p {
   box-shadow: var(--shadow-lg);
 }
 
-/* ---- Skeleton Loading ---- */
 .skeleton {
   background: linear-gradient(
     90deg,
@@ -442,7 +390,6 @@ p {
   }
 }
 
-/* ---- Overlay / Backdrop ---- */
 .overlay {
   position: fixed;
   inset: 0;
@@ -452,7 +399,6 @@ p {
   z-index: var(--z-overlay);
 }
 
-/* ---- Toast ---- */
 .toast {
   position: fixed;
   bottom: var(--space-8);
@@ -482,17 +428,11 @@ p {
   }
 }
 
-/* =============================================================================
- * 6. ANIMATIONS
- * ============================================================================= */
-
-/* Entrance animation for elements revealed by GSAP */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
 }
 
-/* Fade-in utility for non-GSAP elements */
 .fade-in {
   animation: fadeIn 0.6s ease forwards;
 }
@@ -508,7 +448,6 @@ p {
   }
 }
 
-/* Spin animation for loading spinners */
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -524,29 +463,18 @@ p {
   animation: spin 0.6s linear infinite;
 }
 
-/* =============================================================================
- * 7. RESPONSIVE UTILITIES
- * ============================================================================= */
-
-/* Hide on mobile (below 640px) */
 @media (max-width: 639px) {
   .hide-mobile {
     display: none !important;
   }
 }
 
-/* Hide on desktop (above 640px) */
 @media (min-width: 640px) {
   .hide-desktop {
     display: none !important;
   }
 }
 
-/* =============================================================================
- * 8. SCROLLBAR
- * ============================================================================= */
-
-/* Subtle custom scrollbar for WebKit browsers */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -564,7 +492,6 @@ p {
   background: var(--color-text-subtle);
 }
 
-/* Firefox scrollbar */
 html {
   scrollbar-width: thin;
   scrollbar-color: var(--color-border) var(--color-bg);

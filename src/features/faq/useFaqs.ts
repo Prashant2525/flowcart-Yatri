@@ -1,13 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — useFaqs Hook (TanStack Query)
-// =============================================================================
-// PURPOSE:
-//   Fetches FAQ data from the API route. Same pattern as useProducts —
-//   consistency across hooks makes the codebase predictable.
-// =============================================================================
-
 import { useQuery } from '@tanstack/react-query';
 import { FaqItem } from '@/types';
 

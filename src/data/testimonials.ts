@@ -1,7 +1,3 @@
-// =============================================================================
-// FlowCart — Testimonial Mock Data
-// =============================================================================
-
 import { Testimonial } from '@/types';
 
 export const testimonials: Testimonial[] = [

@@ -1,25 +1,5 @@
 'use client';
 
-// =============================================================================
-// FlowCart — ProductQuickView Component
-// =============================================================================
-// PURPOSE:
-//   Modal overlay that shows a larger view of a product with full details,
-//   add-to-cart, and wishlist functionality — without leaving the page.
-//
-// GSAP ANIMATION:
-//   - Entrance: backdrop fades in + modal scales up from 0.95 with opacity
-//   - Exit: reverse animation before unmounting
-//   This is one of the 5 required GSAP animations.
-//
-// INTERVIEW QUESTION:
-//   Q: "How do you handle the exit animation before unmount?"
-//   A: We run the reverse GSAP animation in closeQuickView, and use a timeout
-//      matching the animation duration before actually clearing the store state.
-//      This prevents the content from disappearing before the animation finishes.
-//      An alternative is AnimatePresence from Framer Motion, but we're using GSAP.
-// =============================================================================
-
 import { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
@@ -28,6 +8,7 @@ import { useCartStore } from '@/stores/useCartStore';
 import { useWishlistStore } from '@/stores/useWishlistStore';
 import { formatPrice, calculateDiscount, getStarArray, cn } from '@/lib/utils';
 import { ANIMATION } from '@/lib/constants';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import styles from './ProductQuickView.module.css';
 
 export function ProductQuickView() {
@@ -45,7 +26,8 @@ export function ProductQuickView() {
   const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Animate entrance
+  useFocusTrap(modalRef, isOpen);
+
   useEffect(() => {
     if (!isOpen || !overlayRef.current || !modalRef.current) return;
 
@@ -73,7 +55,6 @@ export function ProductQuickView() {
       }
     );
 
-    // Lock body scroll
     document.body.style.overflow = 'hidden';
 
     return () => {
@@ -81,7 +62,6 @@ export function ProductQuickView() {
     };
   }, [isOpen]);
 
-  // Animated close
   const handleClose = useCallback(() => {
     if (!overlayRef.current || !modalRef.current) {
       closeQuickView();
@@ -112,7 +92,6 @@ export function ProductQuickView() {
     });
   }, [closeQuickView]);
 
-  // Close on Escape
   useEffect(() => {
     if (!isOpen) return;
 
@@ -138,7 +117,7 @@ export function ProductQuickView() {
   }
 
   return (
-    <div className={styles.overlay} ref={overlayRef} role="dialog" aria-label={`Quick view: ${product.name}`}>
+    <div className={styles.overlay} ref={overlayRef} role="dialog" aria-modal="true" aria-label={`Quick view: ${product.name}`}>
       {/* Backdrop */}
       <div className={styles.backdrop} onClick={handleClose} aria-hidden="true" />
 
